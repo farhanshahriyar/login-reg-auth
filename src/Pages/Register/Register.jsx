@@ -6,6 +6,7 @@ import { toast } from 'react-hot-toast';
 const Register = () => {
 
   const [registerError, setRegisterError] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
 
 
   // Handle Register
@@ -27,6 +28,10 @@ const Register = () => {
     if (password.length < 6) {
       setRegisterError('Password must be at least 6 characters long')
       toast.error('Password must be at least 6 characters long')
+      return false
+    } else if (/[A-Z]/.test(password) === false) {
+      setRegisterError('Password must contain at least one uppercase letter')
+      toast.error('Password must contain at least one uppercase letter')
       return false
     }
 
@@ -91,11 +96,12 @@ const Register = () => {
             <input
               id="password"
               name="password"
-              type="password"
+              type={showPassword ? 'text' : 'password'} // show password
               autoComplete="current-password"
               required
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
+            <span onClick={()=> setShowPassword(!showPassword)} className="text-xs text-blue-500 cursor-pointer">Show</span>
           </div>
         </div>
 
