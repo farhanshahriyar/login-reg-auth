@@ -3,7 +3,10 @@ import React from 'react'
 const Register = () => {
   const handleRegister = (e) => {
     e.preventDefault()
-    console.log('Register hoise re mama')
+    // console.log('Register hoise re mama')
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(email, password)
   }
 
   return (
