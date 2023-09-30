@@ -18,11 +18,23 @@ const Register = () => {
     // reset error
     setRegisterError('')
 
+    // if (!email || !password) {
+    //   setRegisterError('Please fill up all the fields')
+    //   toast.error('Please fill up all the fields')
+    //   return false
+    // }
+
+    if (password.length < 6) {
+      setRegisterError('Password must be at least 6 characters long')
+      toast.error('Password must be at least 6 characters long')
+      return false
+    }
+
     // create user with email and password
     createUserWithEmailAndPassword(auth, email, password)
     .then(result => {
       console.log(result.user)
-      toast.success('Register Success')
+      toast.success('Register Successfully Done')
     })
     .catch((error) => {
       const errorCode = error.code;
