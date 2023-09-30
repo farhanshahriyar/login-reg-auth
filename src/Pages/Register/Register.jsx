@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import auth from '../../firebase/firebase.config';
+import { toast } from 'react-hot-toast';
 
 const Register = () => {
+
+  const [registerError, setRegisterError] = useState('')
 
 
   // Handle Register
@@ -12,16 +15,21 @@ const Register = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
     console.log(email, password)
+    // reset error
+    setRegisterError('')
 
     // create user with email and password
     createUserWithEmailAndPassword(auth, email, password)
     .then(result => {
       console.log(result.user)
+      toast.success('Register Success')
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode, errorMessage)
+      setRegisterError(errorMessage)
+      toast.error(errorMessage)
     });
   }
 
