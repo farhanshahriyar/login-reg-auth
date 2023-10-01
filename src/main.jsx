@@ -11,6 +11,7 @@ import Home from './components/Home/Home.jsx';
 import Login from './Pages/Login/Login.jsx';
 import Register from './Pages/Register/Register.jsx';
 import Contact from './Pages/Contact/Contact.jsx';
+import Forget from './Pages/Forget/Forget.jsx';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact/>,
+      },
+      {
+        path: "/forget-password",
+        element: <Forget/>,
       },
     ],
   },
