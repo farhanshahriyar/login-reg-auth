@@ -1,10 +1,40 @@
-import React from 'react'
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import React, { useState } from 'react'
+import { toast } from 'react-hot-toast';
+import auth from '../../firebase/firebase.config';
 
 const Login = () => {
 
+  const [loginError, setLoginError] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+
   const handleLogin = (e) => {
     e.preventDefault()
-    console.log('Login hoise re mama')
+    // console.log('Login hoise re mama')
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(email, password)
+
+    // reset error
+    setLoginError('')
+    if (!email || !password) {
+      setLoginError('Please fill up all the fields')
+      toast.error('Please fill up all the fields')
+      return false
+    }
+
+    signInWithEmailAndPassword(auth, email, password)
+    .then(result => {
+      console.log(result.user)
+      toast.success('Login Successfully Done')
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage)
+      setLoginError(errorMessage)
+      toast.error(errorMessage)
+    });
   }
   return (
 
